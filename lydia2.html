@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<head>
+  
+  <style>
+	  button {
+	  		float: left;
+	  		margin-right: 10px;
+	  	}
+	  
+    header {
+      text-align: center;
+      background: url('https://i.imgur.com/IXbvan0.jpg');
+      background-size: cover;
+      color: 48978c;
+    }
+    a {
+      color: white;
+    }
+    h1 {
+      font-size: 70px;
+    }
+    img {
+      margin: 40px 0px 0px 0px;
+      border: 7px solid white;
+      border-radius: 20px;
+    }
+    ul {
+      padding: 10px;
+      background: rgba(0,0,0,0.5);
+    }
+    li {
+      display: inline;
+      padding: 0px 10px 0px 10px;
+    }
+    article {
+      max-width: 500px;
+      padding: 20px;
+      margin: 0 auto;
+      background: pink;
+    }
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 36px;
+        padding: 5px;
+      }
+      li {
+        padding: 5px;
+        display: block;
+      }
+    }
+  </style>
+  
+</head>
+<body>
+  <header>
+    <img src="https://i.imgur.com/0WeJfHv.jpg">
+    <h1>Lola's Blog</h1>
+    <ul>
+      <li><a href="#">About The Artist</a></li>
+      <li><a href="#">Best Selling Artpieces</a></li>
+      <li><a href="#">Genre-based poems</a></li>
+    </ul>
+  </header>
+  <article>
+    <h2>Inspirations-</h2>
+    <p>Famous artists have long been a source of inspiration for aspiring creators and established artists alike. The works of renowned painters, such as Vincent van Gogh, Pablo Picasso, and Frida Kahlo, continue to captivate and inspire generations. Their distinctive styles, innovative approaches, and fearless exploration of emotions and concepts have left an indelible mark on the art world. Artists often look to these icons for inspiration, studying their techniques, color palettes, and compositions to learn from their mastery. Beyond technical aspects, famous artists also inspire through their stories and philosophies. Van Gogh's relentless passion and dedication, Picasso's ability to break boundaries, and Kahlo's unapologetic self-expression serve as reminders to artists that art is a deeply personal and transformative journey. By drawing inspiration from these legendary figures, artists can find the motivation to push their own boundaries, experiment with new ideas, and create art that is both meaningful and impactful.
+</p>
+    <button class="likeButtons">Like</button>
+	<div class="numLikes">0</div>
+  </article>
+  <article>
+    <h2>Origins-</h2>
+    <p>
+The origins of art can be traced back to the earliest human civilizations. Archaeological discoveries have unearthed cave paintings, rock carvings, and ancient sculptures dating back tens of thousands of years. These artistic expressions were created by our ancestors as a way to communicate, commemorate, and understand the world around them. Art served as a means of storytelling, documenting important events, and depicting everyday life. From the cave paintings of Lascaux to the intricate hieroglyphics of ancient Egypt, art was deeply intertwined with cultural and religious practices. Over time, art evolved and diversified, reflecting the changing societies and beliefs of different civilizations. From the classical sculptures of ancient Greece to the intricate calligraphy of Islamic art, each era and culture contributed to the rich tapestry of artistic expression. Today, art continues to evolve, encompassing a vast range of mediums, styles, and concepts. Its origins remind us of the timeless human need for self-expression, creativity, and the exploration of the world around us.
+</p>
+    <button class="likeButtons">Like</button>
+	<div class="numLikes">0</div>
+  </article>
+  <article>
+    <h2>Abstract Art-</h2>
+    <p>The notion of "the best" kind of art is subjective and can vary greatly depending on personal preferences and interpretations. However, abstract art holds a unique place in the art world due to its ability to evoke emotions, challenge traditional norms, and encourage individual interpretation. Abstract art often breaks away from realistic depictions and embraces non-representational forms, colors, and textures. By stripping away recognizable objects or figures, abstract art invites viewers to engage with the artwork on a deeper, more introspective level. It encourages us to explore our own thoughts, emotions, and perceptions, allowing for a more personal and imaginative connection. Abstract art offers freedom for both the artist and the viewer, as it does not impose any predetermined meaning or narrative. Instead, it invites us to embrace the unknown, to question, and to find our own meaning within the artwork. This open-endedness allows for a wide range of interpretations and an ever-evolving dialogue between the artwork and the viewer. Abstract art pushes boundaries, challenges conventions, and sparks conversations about the nature of art itself. It celebrates experimentation, innovation, and the limitless possibilities of creative expression. In these ways, abstract art holds a special place as one of the most intriguing and thought-provoking forms of artistic expression.
+</p>
+    <button class="likeButtons">Like</button>
+	<div class="numLikes">0</div>
+  </article>
+ 
+</body>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+  
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyBttlNd7faajNFJNY36JYbGSV8aCJY5_hc",
+    authDomain: "lolalol.firebaseapp.com",
+    projectId: "lolalol",
+    storageBucket: "lolalol.appspot.com",
+    messagingSenderId: "308095725179",
+    appId: "1:308095725179:web:aa3b7c9ac7241cda70fcde"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  const LikeButtons = document.querySelectorAll('.likeButtons')
+  const numLikes = document.querySelectorAll('.numLikes')
+  for (let i=0; i<LikeButtons.length; i++) {
+	  LikeButtons[i].addEventListener('click', function(){ Like(i) })
+	  onValue(ref(db, "/article "+i+"/numLikes"), (snapshot) => {
+		    let data = snapshot.val();
+		    numLikes[i].innerHTML = data
+	  });
+  }
+
+
+  function Like(i) {
+	  const numberLikes = parseInt(numLikes[i].innerHTML) + 1
+	  set(ref(db, "article " + i), {
+		  numLikes: numberLikes,
+	  });
+  }
+  
+</script>c                                                              m                     
